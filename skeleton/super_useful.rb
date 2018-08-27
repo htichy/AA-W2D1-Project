@@ -1,3 +1,4 @@
+require 'byebug'
 # PHASE 2
 def convert_to_int(str)
   begin 
@@ -12,19 +13,25 @@ end
 FRUITS = ["apple", "banana", "orange"]
 
 def reaction(maybe_fruit)
-  if FRUITS.include? maybe_fruit
-    puts "OMG, thanks so much for the #{maybe_fruit}!"
-  else 
-    raise StandardError 
-  end 
+  puts "OMG, thanks so much for the #{maybe_fruit}!"
 end
 
 def feed_me_a_fruit
+  begin
   puts "Hello, I am a friendly monster. :)"
 
   puts "Feed me a fruit! (Enter the name of a fruit:)"
   maybe_fruit = gets.chomp
-  reaction(maybe_fruit) 
+
+  
+  if FRUITS.include?(maybe_fruit)
+    reaction(maybe_fruit) 
+  else
+    raise ArgumentError.new "Not a fruit"
+  end
+  rescue ArgumentError => e
+    retry if maybe_fruit == "coffee"
+  end 
 end  
 # FRUITS = ["apple", "banana", "orange"]
 # 
